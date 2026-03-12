@@ -16,6 +16,17 @@ app.innerHTML = `
       </p>
     </section>
 
+    <section class="download-hero">
+      <div>
+        <p class="download-hero-eyebrow">Extension Ready</p>
+        <h2>ดาวน์โหลดไฟล์ติดตั้ง extension ก่อนเริ่มส่ง prompt</h2>
+      </div>
+      <div class="download-hero-actions">
+        <a id="download-extension" class="download-button is-disabled" href="#" aria-disabled="true">Preparing package...</a>
+        <a id="download-release-info" class="text-link text-link-dark" href="/downloads/release-info.json" target="_blank" rel="noreferrer">View release info</a>
+      </div>
+    </section>
+
     <section class="panel">
       <label class="label" for="prompt-input">Prompt</label>
       <textarea id="prompt-input" class="prompt-input" rows="10" placeholder="เช่น cinematic product photo of a luxury perfume bottle on reflective black glass, dramatic rim light, high detail"></textarea>
@@ -33,15 +44,11 @@ app.innerHTML = `
 
     <section class="downloads-card">
       <div class="downloads-copy">
-        <p class="downloads-eyebrow">Extension Download</p>
-        <h2>ดาวน์โหลดไฟล์ extension เพื่อติดตั้งใน Chrome</h2>
+        <p class="downloads-eyebrow">How To Install</p>
+        <h2>ติดตั้งจาก zip ที่ดาวน์โหลดไปใน Chrome แบบ Load unpacked</h2>
         <p class="downloads-text">
-          ระบบจะ generate ไฟล์ zip ของ extension ตอน build แล้วปล่อยไว้กับเว็บนี้โดยอัตโนมัติ
+          เมื่อเว็บ build เสร็จ ระบบจะปล่อยไฟล์ล่าสุดไว้ที่ <strong>/downloads/latest.zip</strong> เพื่อให้ดึงไปติดตั้งได้ทันที
         </p>
-      </div>
-      <div class="downloads-actions">
-        <a id="download-extension" class="download-button is-disabled" href="#" aria-disabled="true">Preparing package...</a>
-        <a id="download-release-info" class="text-link" href="/downloads/release-info.json" target="_blank" rel="noreferrer">View release info</a>
       </div>
       <ol class="install-steps">
         <li>กด Download Extension</li>
