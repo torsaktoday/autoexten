@@ -129,6 +129,83 @@ body {
   color: #475569;
 }
 
+.downloads-card {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+  margin-top: 22px;
+  padding: 24px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.96) 0%, rgba(3, 105, 161, 0.92) 100%);
+  color: white;
+  box-shadow: 0 24px 80px rgba(2, 6, 23, 0.22);
+}
+
+.downloads-eyebrow {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.downloads-card h2 {
+  margin: 0;
+  font-size: clamp(24px, 4vw, 34px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.downloads-text {
+  margin: 14px 0 0;
+  max-width: 540px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.downloads-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+
+.download-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  color: #111827;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 16px 36px rgba(249, 115, 22, 0.32);
+}
+
+.download-button.is-disabled,
+.download-button[aria-disabled="true"] {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.text-link {
+  color: rgba(255, 255, 255, 0.88);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.install-steps {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.8;
+}
+
 .status[data-tone="success"] {
   color: #047857;
 }
@@ -167,5 +244,9 @@ body {
   .send-button {
     width: 100%;
     justify-content: center;
+  }
+
+  .downloads-card {
+    grid-template-columns: 1fr;
   }
 }

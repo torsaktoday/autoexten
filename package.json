@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/build-app.mjs",
     "preview": "vite preview",
     "build:extension": "node scripts/build-extension.mjs",
     "build:ota": "node scripts/build-extension.mjs",

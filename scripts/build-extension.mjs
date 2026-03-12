@@ -8,6 +8,9 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 const distDir = path.join(rootDir, 'extension-dist');
 const unpackedDir = path.join(distDir, 'unpacked');
+const publicDownloadsDir = process.env.PUBLIC_DOWNLOADS_DIR?.trim()
+  ? path.resolve(rootDir, process.env.PUBLIC_DOWNLOADS_DIR.trim())
+  : '';
 const sourceFiles = [
   'background.js',
   'content-bridge.js',
@@ -65,6 +68,15 @@ function runCommand(command, args) {
 async function prepareDist() {
   await rm(distDir, { recursive: true, force: true });
   await mkdir(unpackedDir, { recursive: true });
+}
+
+async function preparePublicDownloads() {
+  if (!publicDownloadsDir) {
+    return;
+  }
+
+  await rm(publicDownloadsDir, { recursive: true, force: true });
+  await mkdir(publicDownloadsDir, { recursive: true });
 }
 
 async function syncVersionFiles(version) {
@@ -181,6 +193,12 @@ async function writeReleaseInfo(version, zipPath, crxPath, updatesPath) {
       baseUrl: otaBaseUrl || null,
       extensionId: extensionId || null
     },
+    downloads: {
+      zip: zipPath ? path.basename(zipPath) : null,
+      zipLatest: zipPath ? 'latest.zip' : null,
+      crx: crxPath ? path.basename(crxPath) : null,
+      updatesXml: updatesPath ? path.basename(updatesPath) : null
+    },
     notes: [
       'Self-hosted auto-update requires a CRX signed with the same PEM key.',
       'Chrome on Windows/macOS generally requires Chrome Web Store or enterprise-managed installation for seamless self-hosted updates.'
@@ -194,9 +212,35 @@ async function writeReleaseInfo(version, zipPath, crxPath, updatesPath) {
   );
 }
 
+async function publishDownloads(zipPath, crxPath, updatesPath) {
+  if (!publicDownloadsDir) {
+    return;
+  }
+
+  if (zipPath) {
+    const zipFileName = path.basename(zipPath);
+    await copyFile(zipPath, path.join(publicDownloadsDir, zipFileName));
+    await copyFile(zipPath, path.join(publicDownloadsDir, 'latest.zip'));
+  }
+
+  if (crxPath) {
+    await copyFile(crxPath, path.join(publicDownloadsDir, path.basename(crxPath)));
+  }
+
+  if (updatesPath) {
+    await copyFile(updatesPath, path.join(publicDownloadsDir, path.basename(updatesPath)));
+  }
+
+  await copyFile(
+    path.join(distDir, 'release-info.json'),
+    path.join(publicDownloadsDir, 'release-info.json')
+  );
+}
+
 async function main() {
   await syncVersionFiles(requestedVersion);
   await prepareDist();
+  await preparePublicDownloads();
   await copyExtensionFiles();
   const manifest = await buildManifest();
   const artifactBaseName = `grok-imagine-prompt-sender-${manifest.version}`;
@@ -205,6 +249,7 @@ async function main() {
   const updatesPath = await writeUpdatesXml(manifest.version, artifactBaseName, Boolean(crxPath));
 
   await writeReleaseInfo(manifest.version, zipPath, crxPath, updatesPath);
+  await publishDownloads(zipPath, crxPath, updatesPath);
 
   console.log(`Built extension ${manifest.version}`);
   console.log(`Unpacked: ${unpackedDir}`);
@@ -220,6 +265,10 @@ async function main() {
     console.log(`updates.xml: ${updatesPath}`);
   } else {
     console.log('updates.xml: skipped (requires OTA_BASE_URL, EXTENSION_ID, and CRX packaging)');
+  }
+
+  if (publicDownloadsDir) {
+    console.log(`Published downloads: ${publicDownloadsDir}`);
   }
 }
 

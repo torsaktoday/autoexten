@@ -1,4 +1,5 @@
 dist/
 extension-dist/
 node_modules/
+public/downloads/
 *.log
