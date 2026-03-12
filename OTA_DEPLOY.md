@@ -21,9 +21,9 @@ npm run build
 
 Artifacts will be generated in `dist/`:
 
-- `dist/unpacked` for manual load in Developer Mode
-- `dist/grok-imagine-prompt-sender-<version>.zip` for distribution
-- `dist/release-info.json` with artifact metadata
+- `extension-dist/unpacked` for manual load in Developer Mode
+- `extension-dist/grok-imagine-prompt-sender-<version>.zip` for distribution
+- `extension-dist/release-info.json` with artifact metadata
 
 ## Enable CRX + updates.xml
 
@@ -39,8 +39,8 @@ npm run build
 
 When all required values are present, the build also creates:
 
-- `dist/grok-imagine-prompt-sender-<version>.crx`
-- `dist/updates.xml`
+- `extension-dist/grok-imagine-prompt-sender-<version>.crx`
+- `extension-dist/updates.xml`
 
 ## Deployment notes
 
