@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <style>
+    :root {
+      --footer-height: 32px;
+      --footer-border: #e5e7eb;
+      --footer-text: #475569;
+      --footer-bg: #f8fafc;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #fff;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    iframe {
+      width: 100%;
+      height: calc(100vh - var(--footer-height));
+      border: none;
+      flex: 1 1 auto;
+    }
+
+    .footer {
+      height: var(--footer-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      box-sizing: border-box;
+      border-top: 1px solid var(--footer-border);
+      background: var(--footer-bg);
+      color: var(--footer-text);
+      font-size: 12px;
+      line-height: 1;
+    }
+
+    .footer strong {
+      font-weight: 600;
+      color: #0f172a;
+    }
+  </style>
+</head>
+<body>
+  <!-- โหลด UI จาก Server ของคุณ (OTA) -->
+  <iframe id="remote-ui" src="https://easyaff.vercel.app"></iframe>
+  <footer class="footer">
+    <span>Extension <strong id="extension-version">v-</strong></span>
+    <span id="extension-build-label">Ready</span>
+  </footer>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "Grok Imagine Prompt Sender",
+  "version": "1.4.1",
+  "description": "ส่งคำสั่งไปยัง Grok Imagine (รองรับ OTA & API)",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "เปิดแถบด้านข้าง Grok Imagine"
+  },
+  "side_panel": {
+    "default_path": "popup.html"
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "sidePanel"
+  ],
+  "host_permissions": [
+    "https://grok.com/*",
+    "https://easyaff.vercel.app/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://grok.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://easyaff.vercel.app/*",
+        "*://localhost/*"
+      ],
+      "all_frames": true,
+      "js": [
+        "content-bridge.js"
+      ]
+    }
+  ]
+}

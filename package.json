@@ -1,0 +1,10 @@
+{
+  "name": "grok-extension-ota010",
+  "version": "1.4.1",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-extension.mjs",
+    "build:ota": "node scripts/build-extension.mjs",
+    "release": "node scripts/build-extension.mjs"
+  }
+}
